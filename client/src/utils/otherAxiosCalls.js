@@ -4,8 +4,8 @@ import axiosWithAuth from '../utils/axiosWithAuth';
 
 const baseAxiosCall = () => {
   return axios.create({
-    // baseURL: BASEURL,
-    baseURL: 'http://localhost:2019',
+    baseURL: BASEURL,
+    // baseURL: 'http://localhost:2019',
   });
 };
 
@@ -50,8 +50,8 @@ export const postTicket = newTicket => {
     severity,
   } = newTicket;
   // TEMP COMMENT OUT SINCE WE DONT HAVE ANT MATCHERS return axiosWithAuth()
-  axios
-    .post(`http://localhost:2019/tickets/tickets`, {
+  return axiosWithAuth()
+    .post('/tickets/tickets', {
       title: title,
       description: description,
       status: status,
@@ -72,7 +72,7 @@ export const postTicket = newTicket => {
 
 export const getStatusesByUser = () => {
   return axiosWithAuth()
-    .get(`http://localhost:2019/statuses/statuses/user`)
+    .get('/statuses/user')
     .then(res => {
       return res;
     })
@@ -83,7 +83,7 @@ export const getStatusesByUser = () => {
 
 export const getAllStatuses = () => {
   return axiosWithAuth()
-    .get(`http://localhost:2019/statuses/statuses`)
+    .get('/statuses/statuses')
     .then(res => {
       return res;
     })
@@ -94,7 +94,7 @@ export const getAllStatuses = () => {
 
 export const getStatusById = id => {
   return axiosWithAuth()
-    .get(`http://localhost:2019/statuses/status/${id}`)
+    .get(`/statuses/status/${id}`)
     .then(res => {
       return res;
     })
@@ -105,7 +105,7 @@ export const getStatusById = id => {
 
 export const addNewStatus = () => {
   return axiosWithAuth()
-    .post('http://localhost:2019/statuses/statuses')
+    .post('/statuses/statuses')
     .then(res => {
       return res;
     })
@@ -115,8 +115,8 @@ export const addNewStatus = () => {
 };
 
 export const editExistingStatus = id => {
-  axiosWithAuth()
-    .put(`http://localhost:2019/statuses/status/${id}`)
+  return axiosWithAuth()
+    .put(`/statuses/status/${id}`)
     .then(res => {
       return res;
     })
@@ -127,7 +127,7 @@ export const editExistingStatus = id => {
 
 export const deleteStatusById = id => {
   return axiosWithAuth()
-    .delete(`http://localhost:2019/statuses/status/${id}`)
+    .delete(`/statuses/status/${id}`)
     .then(res => {
       return res;
     })

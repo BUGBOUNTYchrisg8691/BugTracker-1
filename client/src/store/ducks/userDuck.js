@@ -21,7 +21,7 @@ export const actions = {
     dispatch({ type: types.LOGIN_START });
     login(creds)
       .then(res => {
-        localStorage.setItem('token');
+        localStorage.setItem('token', res.data.access_token);
         dispatch({ type: types.LOGIN_SUCCESS });
       })
       .catch(err => {
@@ -36,6 +36,7 @@ export const actions = {
     dispatch({ type: types.REGISTER_START });
     register(newUser)
       .then(res => {
+        localStorage.setItem('token', res.data.access_token);
         dispatch({ type: types.REGISTER_SUCCESS });
       })
       .catch(err => {

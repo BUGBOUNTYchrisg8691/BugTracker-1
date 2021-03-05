@@ -4,9 +4,10 @@ import styled from 'styled-components';
 import { Form, Button } from 'react-bootstrap';
 import { Formik } from 'formik';
 import { useDispatch } from 'react-redux';
-import { getCurrentUser } from '../store/actions/UserActions';
+// import { getCurrentUser } from '../store/actions/UserActions';
 import { loginSchema } from '../schema';
-import { login } from '../utils/otherAxiosCalls';
+// import { login } from '../utils/otherAxiosCalls';
+import { actions } from '../store/ducks/userDuck';
 
 // Styled components
 const StyledContainer = styled.div`
@@ -78,18 +79,18 @@ export default function LoginForm() {
         validationSchema={loginSchema}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setSubmitting(true);
-          login({ username: values.username, password: values.password })
-            .then(res => {
-              console.log('Login Successful ==>> ', res.data);
-              localStorage.setItem('token', res.data.access_token);
-              dispatch(getCurrentUser());
-              push('/dashboard');
-            })
-            .catch(err => {
-              console.log('Login Failed ==>> ', err);
-              alert('login failed');
-              push('/');
-            });
+          dispatch(actions.loginThunk({ username: values.username, password: values.password }));
+            // .then(res => {
+            //   console.log('Login Successful ==>> ', res.data);
+            //   localStorage.setItem('token', res.data.access_token);
+            //   dispatch(getCurrentUser());
+          push('/dashboard');
+            // })
+            // .catch(err => {
+            //   console.log('Login Failed ==>> ', err);
+            //   alert('login failed');
+            //   push('/');
+            // });
           resetForm();
           setSubmitting(false);
         }}
